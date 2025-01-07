@@ -14,6 +14,7 @@ class WeatherDashboard:
         self.bucket_name = os.getenv('AWS_BUCKET_NAME')
         self.s3_client = boto3.client('s3')
 
+
     def create_bucket_if_not_exists(self):
         """Create S3 bucket if it doesn't exist"""
         try:
@@ -22,11 +23,18 @@ class WeatherDashboard:
         except:
             print(f"Creating bucket {self.bucket_name}")
         try:
-            # Simpler creation for us-east-1
-            self.s3_client.create_bucket(Bucket=self.bucket_name)
+            # Create S3 bucket in us-west-1 region
+            self.s3_client.create_bucket(
+                Bucket=self.bucket_name,
+                # Address locaiton constraint error
+                CreateBucketConfiguration={
+                    "LocationConstraint": "us-west-1"
+                }
+                )
             print(f"Successfully created bucket {self.bucket_name}")
         except Exception as e:
             print(f"Error creating bucket: {e}")
+
 
     def fetch_weather(self, city):
         """Fetch weather data from OpenWeather API"""
@@ -44,6 +52,7 @@ class WeatherDashboard:
         except requests.exceptions.RequestException as e:
             print(f"Error fetching weather data: {e}")
             return None
+
 
     def save_to_s3(self, weather_data, city):
         """Save weather data to S3 bucket"""
@@ -67,6 +76,7 @@ class WeatherDashboard:
             print(f"Error saving to S3: {e}")
             return False
 
+
 def main():
     dashboard = WeatherDashboard()
     
@@ -75,6 +85,7 @@ def main():
     
     cities = ["Philadelphia", "Seattle", "New York"]
     
+    # Loop through cities in the cities list and gather desired data
     for city in cities:
         print(f"\nFetching weather for {city}...")
         weather_data = dashboard.fetch_weather(city)
@@ -96,5 +107,6 @@ def main():
         else:
             print(f"Failed to fetch weather data for {city}")
 
+# Run Script
 if __name__ == "__main__":
     main()
