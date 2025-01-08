@@ -1,7 +1,7 @@
 <h1>Weather Dashboard with OpenWeather API and AWS S3 Bucket</h1>
 <p>Day 1 Lab from the 30 Days of DevOps Challenge. This repository was cloned from https://github.com/ShaeInTheCloud/30days-weather-dashboard to replicate the following diagram.</p>
 <p>To complete this challenge, I followed along ShaeInTheCloud's YouTube video. That video can be found here: https://www.youtube.com/watch?v=A95XBJFOqjw</p>
-<img src="https://github.com/user-attachments/assets/871d4dea-aed7-4e93-b30f-5619b42bf2bb">
+<img src="https://github.com/user-attachments/assets/c56025dc-2a9c-4479-ba25-03e41c9c8b77">
 <h2>Prerequisites</h2>
 <p>To run this script, the following prerequisites are needed.</p>
 <ul>
